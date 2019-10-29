@@ -4,6 +4,12 @@ metadata:
   name: k8s-demo-deployment
 spec:
   replicas: 3
+  minReadySeconds: 5  # 在更新了一个 pod 后，需要在它进入正常状态后 5 秒再更新下一个
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1 # 指同时处于不可用状态的 pod 不能超过一个
+      maxSurge: 1       # 多余的 pod 不能超过一个
   selector:
     matchLabels:
       app: k8s-demo
@@ -14,7 +20,7 @@ spec:
     spec:
       containers:
         - name: k8s-demo-pod
-          image: k8s-demo:0.1
+          image: k8s-demo:0.2
           ports:
             - containerPort: 80
 
