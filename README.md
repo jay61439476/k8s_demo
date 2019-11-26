@@ -135,6 +135,32 @@ k8s-demo-deployment-7c4cf5fbbf-qdn27   1/1     Running   0          79s
 
 ```
 
+## 最终效果（ubuntu)
+```bash
+# k get all
+NAME                                       READY   STATUS    RESTARTS   AGE
+pod/k8s-demo-deployment-545967bfcb-fmrb7   1/1     Running   0          134m
+pod/k8s-demo-deployment-545967bfcb-kw59g   1/1     Running   0          134m
+pod/k8s-demo-deployment-545967bfcb-njhht   1/1     Running   0          134m
+
+NAME                    TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+service/k8s-demo-svc    NodePort    10.97.51.154     <none>        80:30050/TCP   143m
+
+NAME                                  READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/k8s-demo-deployment   3/3     3            3           141m
+
+NAME                                             DESIRED   CURRENT   READY   AGE
+replicaset.apps/k8s-demo-deployment-545967bfcb   3         3         3       141m
+replicaset.apps/k8s-demo-deployment-7c4cf5fbbf   0         0         0       138m
+```
+*  访问测试
+```bash
+# local
+curl 10.97.51.154 # OK
+
+# remote
+curl host:30050
+```
 
 ## 参考
 * [Docker 和 Kubernetes 从听过到略懂：给程序员的旋风教程](https://juejin.im/post/5b62d0356fb9a04fb87767f5)
